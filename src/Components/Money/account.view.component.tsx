@@ -176,7 +176,7 @@ class ViewAccount extends React.Component<IViewAccountProps, IViewAccountState> 
 						</div>
 					</div>
 					{/* <AccountNavigation date={this.state.date} /> */}
-					<div className="max-w-7xl mx-auto mt-10 flex flex-wrap pl-5 pr-5 lg:pl-0 lg:pr-0">
+					<div className="max-w-7xl mx-auto mt-10 flex flex-wrap pl-5 pr-5">
 						<div className="w-full md:w-6/12 md:pr-5">
 							<div className={(this.state.accountTotal >= 0 ? "bg-green-600" : "bg-red-600") + " p-10 mb-5 text-white rounded-xl shadow-lg border text-center"}>
 								<p className="font-bold">Total</p>
@@ -192,7 +192,7 @@ class ViewAccount extends React.Component<IViewAccountProps, IViewAccountState> 
 							{/* <AccountTotalExcludingBills total={this.state.totalMinusBills} /> */}
 						</div>
 					</div>
-					<div className="max-w-7xl mx-auto mt-5 flex flex-wrap pl-5 pr-5 lg:pl-0 lg:pr-0">
+					<div className="max-w-7xl mx-auto mt-5 flex flex-wrap pl-5 pr-5">
 						<div className="w-full md:w-6/12">
 							<div className="md:pr-5">
 								<div className="p-10 mb-10 bg-white rounded-xl shadow-lg border">
@@ -208,7 +208,7 @@ class ViewAccount extends React.Component<IViewAccountProps, IViewAccountState> 
 							</div>
 						</div>
 					</div>
-					<div className="max-w-7xl mx-auto mt-10 flex flex-wrap pl-5 pr-5 lg:pl-0 lg:pr-0">
+					<div className="max-w-7xl mx-auto mt-10 flex flex-wrap pl-5 pr-5">
 						<div className="w-full">
 							<div className="p-10 bg-white rounded-xl shadow-lg border">
 								<div className="flex justify-between">
