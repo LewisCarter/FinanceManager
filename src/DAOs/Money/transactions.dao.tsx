@@ -10,7 +10,7 @@ export async function getRecentTransactions(limit:number=5) {
 		method: 'post',
 		data : {
 			query: `query {
-				transactions(sort: "DateTime:DESC", limit: ` + limit + `) {
+				transactions(where: {bank_account_null:false}, sort: "DateTime:DESC", limit: ` + limit + `) {
 					id, 
 					Description, 
 					Amount, 

@@ -146,7 +146,7 @@ class ViewAccount extends React.Component<IViewAccountProps, IViewAccountState> 
 
 			let transactions = this.state.transactionHistory;
 			
-			return <LoggedInTemplate title={this.state.bankAccount !== undefined ? this.state.bankAccount.Name : "Loading..."} chart={<BankTotalPanel />} breadcrumb={[{link: '/banks', text: 'Bank accounts'}, {link: '', text: (this.state.bankAccount !== undefined ? this.state.bankAccount.Name : "Loading...")}]}>
+			return <LoggedInTemplate title={this.state.bankAccount !== undefined ? this.state.bankAccount.Name : "Loading..."} chart={<BankTotalPanel forceRefresh={false} />} breadcrumb={[{link: '/banks', text: 'Bank accounts'}, {link: '', text: (this.state.bankAccount !== undefined ? this.state.bankAccount.Name : "Loading...")}]}>
 				{this.state.bankAccount === undefined ? <p>Loading...</p> : <>
 					<div className="max-w-7xl mx-auto -mt-8">
 						<div className="flex flex-wrap items-start flex-row justify-between bg-white rounded-xl p-10">

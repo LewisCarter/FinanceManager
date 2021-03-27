@@ -29,7 +29,7 @@ export async function getBankListingChartTotal(dateTo: string): Promise<number> 
 		},
 		method: 'post',
 		data : {
-			query: `query { transactionsConnection(where: {DateTime_lt: "` + dateTo + `"}) {
+			query: `query { transactionsConnection(where: {bank_account_null: false, DateTime_lt: "` + dateTo + `"}) {
 				aggregate {
 				  sum {
 					Amount

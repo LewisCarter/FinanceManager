@@ -10,7 +10,7 @@ export async function getUpcomingPlannedTransactions(limit=5) {
 		method: 'post',
 		data : {
 			query: `query {
-				plannedTransactions(sort: "Date:ASC", limit: ` + limit + `, where: {Processed:false}) {
+				plannedTransactions(sort: "Date:ASC", limit: ` + limit + `, where: {Processed:false, bank_account_null:false}) {
 					id, 
 					Name, 
 					Amount, 

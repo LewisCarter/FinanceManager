@@ -26,12 +26,14 @@ class BanksListing extends React.Component<IAccountListingProps, IAccountListing
 			plannedTransactions: [],
 			errors: [],
 			openNewAccountModal: false,
-			closeNewAccountModal: false
+			closeNewAccountModal: false,
+			refreshTotalsChart: false
 		};
 
 		this.getAccounts = this.getAccounts.bind(this);
 		this.newAccountModal = this.newAccountModal.bind(this);
 		this.newAccountSuccess = this.newAccountSuccess.bind(this);
+		this.deleteAccountSuccess = this.deleteAccountSuccess.bind(this);
 	}
 
 	async getAccounts() {
@@ -85,6 +87,11 @@ class BanksListing extends React.Component<IAccountListingProps, IAccountListing
 				closeNewAccountModal: false
 			});
 		}
+		if (this.state.refreshTotalsChart !== prevState.refreshTotalsChart && this.state.refreshTotalsChart) {
+			this.setState({
+				refreshTotalsChart: false
+			});
+		}
 	}
 
 	newAccountModal(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
@@ -105,12 +112,22 @@ class BanksListing extends React.Component<IAccountListingProps, IAccountListing
 		});
 	}
 
+	deleteAccountSuccess() {
+		this.getAccounts();
+		this.getRecentTransactions();
+		this.getUpcomingPlannedTransactions();
+
+		this.setState({
+			refreshTotalsChart: true
+		})
+	}
+
 	render() {
-		return <LoggedInTemplate title="bank accounts" chart={<BankTotalPanel/>}>
+		return <LoggedInTemplate title="bank accounts" chart={<BankTotalPanel forceRefresh={this.state.refreshTotalsChart} />}>
 			<div className="max-w-7xl mx-auto -mt-8">
 				<div className="flex flex-wrap items-start flex-row">
 					{this.state.accounts !== undefined && this.state.accounts !== null && this.state.accounts.length > 0 ? this.state.accounts.map((account) => {
-						return <BankAccount account={account} key={'account-' + account.id} />
+						return <BankAccount account={account} key={'account-' + account.id} deleteSuccess={this.deleteAccountSuccess} />
 					}) : ''}
 					<div className="w-full md:w-3/12 pl-5 pr-5 flex justify-center mb-10">
 						<Link to={'#'} className="flex flex-col items-center justify-center w-full rounded-xl shadow-lg bg-white  pl-5 pr-5 pt-8 pb-8 hover:bg-gray-100" onClick={(e) => {this.newAccountModal(e)}}>

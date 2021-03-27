@@ -34,7 +34,7 @@ export function getSavingsPotTotals(dateTo: string | null) {
 		},
 		method: 'post',
 		data : {
-			query: `query { plannedTransactionsConnection(where: {Processed: true` + (dateTo !== null ? `, Date_lt: "` + dateTo + `"` : ``) + `}) {
+			query: `query { plannedTransactionsConnection(where: {bank_account_null: false, Processed: true` + (dateTo !== null ? `, Date_lt: "` + dateTo + `"` : ``) + `}) {
 				groupBy {
 					savings_pot {
 						key

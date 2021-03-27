@@ -18,4 +18,5 @@ export interface IAccountListingState {
 	errors?: Array<{id:string, message: string}>;
 	openNewAccountModal: boolean;
 	closeNewAccountModal: boolean;
+	refreshTotalsChart: boolean;
 }

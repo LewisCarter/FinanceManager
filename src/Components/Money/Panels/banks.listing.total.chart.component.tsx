@@ -3,6 +3,7 @@ import { ResponsiveLine } from '@nivo/line';
 import { getBankListingChartTotals } from '../../../DAOs/Money/transaction.totals.dao';
 
 interface IBankTotalPanelProps {
+	forceRefresh: boolean;
 }
 
 interface IBankTotalPanelState {
@@ -10,22 +11,32 @@ interface IBankTotalPanelState {
 	data: Array<{
 		x: string;
 		y: number;
-	}>
+	}>;
+	refresh: boolean;
 }
 
 class BankTotalPanel extends React.Component<IBankTotalPanelProps, IBankTotalPanelState> {
 
-	constructor(props: {}) {
+	constructor(props: IBankTotalPanelProps) {
 		super(props);
 
 		this.state = {
 			"id": "bank-totals",
-			"data": []
+			"data": [],
+			"refresh": false
 		};
 	}
 
 	componentDidMount() {
 		this.getData();
+	}
+
+	componentDidUpdate(prevProps: IBankTotalPanelProps, preState: IBankTotalPanelState) {
+		if (this.props.forceRefresh && !prevProps.forceRefresh) {
+			this.setState({
+				refresh: true
+			});
+		}
 	}
 
 	async getData() {

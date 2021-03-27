@@ -7,6 +7,7 @@ import DeleteAccount from './Forms/delete.bank.account';
 
 interface IAccountProps {
 	account: IAccount;
+	deleteSuccess: Function;
 }
 
 interface IAccountState {
@@ -52,6 +53,7 @@ class BankAccount extends React.Component<IAccountProps, IAccountState> {
 	}
 
 	deletedCallback() {
+		this.props.deleteSuccess();
 		this.setState({
 			deleted: true,
 			closeNewDeleteModal: true
