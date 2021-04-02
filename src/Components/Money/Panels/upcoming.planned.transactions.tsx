@@ -1,14 +1,26 @@
+import { useEffect, useState } from 'react';
+import { getUpcomingPlannedTransactions } from '../../../DAOs/Money/planned.transaction.dao';
 import { IPlannedTransaction } from '../../../DTOs/Money/planned.transaction.dto';
 import { PlannedTransaction } from '../Components/planned.transaction';
 
 interface IUpcomingPlannedTransactionsProps {
-	transactions: Array<IPlannedTransaction>
+	refresh: boolean | null
 }
 
-export function UpcomingPlannedTransactions(props: IUpcomingPlannedTransactionsProps) {
+export const UpcomingPlannedTransactions = (props: IUpcomingPlannedTransactionsProps) => {
+	
+	const [transactions, setTransactions] = useState<IPlannedTransaction[]>([]);
+
+	useEffect(() => {
+		getUpcomingPlannedTransactions().then((result: IPlannedTransaction[]) => {
+			setTransactions(result);
+		})
+		
+	}, [props.refresh]);
+	
 	return <div className="p-10 bg-white rounded-xl shadow-lg border">
 		<h2 className="font-bold text-2xl mb-5">Upcoming planned transactions</h2>
-		{props.transactions !== undefined && props.transactions !== null && props.transactions.length > 0 ? props.transactions.map((transaction) => {
+		{transactions.length > 0 ? transactions.map((transaction) => {
 			return <PlannedTransaction 
 				id={transaction.id}
 				processed={transaction.Processed}

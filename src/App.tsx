@@ -5,8 +5,8 @@ import {
   } from "react-router-dom";
 import PrivateRoute from './Components/Routing/private.route';
 import Dashboard from './Components/Dashboard/dashboard.component';
-import BanksListing from './Components/Money/banks.listing.component';
-import ViewAccount from './Components/Money/account.view.component';
+import { BanksListing } from './Components/Money/banks.listing.component';
+import { ViewAccount } from './Components/Money/account.view.component';
 import PropertyListing from './Components/Property/property.listing.component';
 
 class App extends React.Component {

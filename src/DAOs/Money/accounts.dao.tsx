@@ -2,8 +2,10 @@ import axios, { AxiosRequestConfig } from "axios";
 import {IAccount, INewAccountFormValues} from '../../DTOs/Money/account.dto';
 import { IBank } from '../../DTOs/Money/bank.dto';
 import { createBank } from './banks.dao';
+import moment from 'moment';
+import { getLatestAccountTotal } from "./transaction.totals.dao";
 
-export async function getAccounts() {
+export async function getAccounts(): Promise<IAccount[]> {
 	return await axios({
 		url: process.env.REACT_APP_API_ENDPOINT,
 		headers: {
@@ -23,6 +25,19 @@ export async function getAccounts() {
 		}
 	}).then(response => {
 		return response.data.data.bankAccounts;
+	}).then((bankAccounts: IAccount[]) => {
+		const dateFrom = moment().date(25);
+		const dateTo = moment().date(25);
+
+		const dateFromISO = (dateFrom.toDate().getDay() < 25) ? dateFrom.subtract({months: 1}).toISOString() : dateFrom.toISOString();
+		const dateToISO = (dateTo.toDate().getDay() >= 25) ? dateTo.add({months: 1}).toISOString() : dateTo.toISOString();
+
+		return Promise.all(bankAccounts.map(async (account: IAccount) => {
+			await getLatestAccountTotal(account.id, dateFromISO, dateToISO).then((total: number) => {
+				account.Total = total;
+			});
+			return account;
+		}));
 	}).catch(response => {
 		console.log('Error loading bank accounts...');
 		// TODO: Do something with the errors
@@ -132,7 +147,7 @@ export async function createAccount(values: INewAccountFormValues): Promise<IAcc
 	
 }
 
-export async function deleteAccount(id: string) {
+export async function deleteAccount(id: string): Promise<string> {
 	return await axios({
 		url: process.env.REACT_APP_API_ENDPOINT,
 		headers: {

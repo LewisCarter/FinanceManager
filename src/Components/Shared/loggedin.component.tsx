@@ -4,24 +4,29 @@ import LoggedInFooter from './footer.component';
 
 interface ILoggedInTemplateProps {
 	title: string;
-	chart: any;
+	chart?: any;
 	breadcrumb?: Array<{
 		link: string;
 		text: string;
 	}>;
 }
 
-interface ILoggedInTemplateState {
+export const LoggedInTemplate: React.FunctionComponent<ILoggedInTemplateProps> = (props) => {
+	return <>
+		<LoggedInHeader title={props.title} chart={props.chart} breadcrumb={props.breadcrumb} />
+			{props.children}
+		<LoggedInFooter />
+	</>;
 }
 
-class LoggedInTemplate extends React.Component<ILoggedInTemplateProps, ILoggedInTemplateState> {
-	render() {
-		return <>
-			<LoggedInHeader title={this.props.title} chart={this.props.chart} breadcrumb={this.props.breadcrumb} />
-				{this.props.children}
-			<LoggedInFooter />
-		</>;
-	}
-}
+// class LoggedInTemplate extends React.Component<ILoggedInTemplateProps, ILoggedInTemplateState> {
+// 	render() {
+// 		return <>
+// 			<LoggedInHeader title={this.props.title} chart={this.props.chart} breadcrumb={this.props.breadcrumb} />
+// 				{this.props.children}
+// 			<LoggedInFooter />
+// 		</>;
+// 	}
+// }
 
-export default LoggedInTemplate;
+// export default LoggedInTemplate;

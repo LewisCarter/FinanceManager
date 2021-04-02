@@ -1,16 +1,26 @@
 import { Transaction } from '../Components/transaction';
-import { IRecentTransaction } from '../../../DTOs/Money/recent.transaction.dto';
+import { useEffect, useState } from 'react';
+import { getRecentTransactions } from '../../../DAOs/Money/transactions.dao';
+import { ITransaction } from '../../../DTOs/Money/transaction.dto';
 
 interface IRecentTransactionsProps {
-	transactions: Array<IRecentTransaction>
+	refresh: boolean | null
 }
 
-export function RecentTransactions(props: IRecentTransactionsProps) {
+export const RecentTransactions = (props: IRecentTransactionsProps) => {
 
-	let transactions = props.transactions;
+	const [transactions, setTransactions] = useState<ITransaction[]>([]);
+
+	useEffect(() => {
+		getRecentTransactions().then((result: ITransaction[]) => {
+			setTransactions(result);
+		})
+		
+	}, [props.refresh]);
+
 	return <div className="p-10 mb-10 bg-white rounded-xl shadow-lg border">
 		<h2 className="font-bold text-2xl mb-5">Recent transactions</h2>
-		{transactions !== undefined && transactions !== null && transactions.length > 0 ? transactions.map((transaction) => {
+		{transactions.length > 0 ? transactions.map((transaction) => {
 			return <Transaction 
 				key={'recent-transaction-' + transaction.id}
 				id={transaction.id}

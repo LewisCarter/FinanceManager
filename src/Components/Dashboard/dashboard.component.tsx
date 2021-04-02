@@ -1,7 +1,7 @@
 import React from 'react';
-import LoggedInTemplate from '../Shared/loggedin.component';
+import { LoggedInTemplate } from '../Shared/loggedin.component';
 import NetWorthPanel from './Panels/net.worth.component';
-import SavingsTotalsPanel from '../Money/Panels/savings.totals.component';
+import { SavingsTotalsPanel } from '../Money/Panels/savings.totals.component';
 import EmergencyFundPanel from './Panels/emergency.fund.component';
 
 interface IDashboardProps {}
@@ -24,7 +24,7 @@ class Dashboard extends React.Component<IDashboardProps, IDashboardState> {
 						</div>
 						<div className="w-full md:w-6/12 pl-5 pr-5">
 							<div className="bg-white rounded-xl p-10 shadow-lg">
-								<SavingsTotalsPanel accountId={null} dateTo={null} setSavingsPotsTotal={undefined} />
+								<SavingsTotalsPanel accountId={null} dateTo={null} refresh={false} />
 							</div>
 						</div>
 					</div>

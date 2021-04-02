@@ -1,5 +1,5 @@
 import React from 'react';
-import LoggedInTemplate from '../Shared/loggedin.component';
+import { LoggedInTemplate } from '../Shared/loggedin.component';
 
 class PropertyListing extends React.Component {
 

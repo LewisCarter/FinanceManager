@@ -1,10 +1,8 @@
-export interface IPlannedTransaction {
+export interface IReccuringTransaction {
 	id: string;
 	Name: string;
 	Amount: number;
-	Processed: boolean;
-	Date: string;
-	createdAt : string;
+	DayOfTheMonth: number;
 	bank_account : {
 		id: string;
 		Name: string;
@@ -19,11 +17,10 @@ export interface IPlannedTransaction {
 	};
 }
 
-export interface IPlannedTransactionCreateInput {
+export interface IReccuringTransactionCreateInput {
 	Name: string;
 	Amount: number;
-	Processed: boolean;
-	Date: string;
+	DayOfTheMonth: number;
 	bank_account : string;
 	transaction_category : string;
 }

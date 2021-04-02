@@ -1,9 +1,6 @@
 import { IRecentTransaction } from './recent.transaction.dto';
 import { IPlannedTransaction } from './planned.transaction.dto';
 
-export interface IAccountListingProps {
-}
-
 export interface IAccountListingState {
 	accounts: Array<{
 		id: string,

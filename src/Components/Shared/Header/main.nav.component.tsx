@@ -10,7 +10,7 @@ interface IMainNavState {
 
 class MainNav extends React.Component<IMainNavProps, IMainNavState> {
 
-	constructor(props: {}) {
+	constructor(props: IMainNavProps) {
 		super(props);
 
 		this.state = {

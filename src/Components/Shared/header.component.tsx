@@ -1,6 +1,6 @@
 import React from 'react';
 import MainNav from './Header/main.nav.component';
-import Breadcrumb from './Header/breadcrumb.component';
+import { Breadcrumb } from './Header/breadcrumb.component';
 
 interface ILoggedInHeaderProps {
 	title: string;

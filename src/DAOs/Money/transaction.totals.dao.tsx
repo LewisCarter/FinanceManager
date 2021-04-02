@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export async function getBankListingChartTotals(): Promise<{x: string; y: number;}[]> {
 
-	const dateTo = (moment().toDate().getDay() >= 25) ? moment().date(25).add({months: 1}) : moment().date(25);
+	const dateTo = (moment().date() >= 25) ? moment().date(25).add({months: 1}) : moment().date(25);
 	
 	let data = [];
 
@@ -30,6 +30,52 @@ export async function getBankListingChartTotal(dateTo: string): Promise<number> 
 		method: 'post',
 		data : {
 			query: `query { transactionsConnection(where: {bank_account_null: false, DateTime_lt: "` + dateTo + `"}) {
+				aggregate {
+				  sum {
+					Amount
+				  }
+				}
+			   }}`
+		}
+	}).then(async response => {
+		if (response.data.data.transactionsConnection.aggregate.sum.Amount !== null) {
+			return response.data.data.transactionsConnection.aggregate.sum.Amount;
+		} else {
+			return 0;
+		}
+	}).catch(response => {
+		console.log('Error loading latest account total...');
+		// TODO: Do something with the errors
+		return 0;
+	});
+}
+
+export async function getAccountChartTotals(accountId: string, date: string): Promise<{x: string; y: number;}[]> {
+
+	let data = [];
+
+	for (let i = 11; i >= 0; i--) {
+		const dateToMonth = moment(date).subtract({months: i});
+		const dateToMonthISO = dateToMonth.toISOString();
+
+		data.push({
+			x: dateToMonth.format("DD MMM YYYY"),
+			y: await getAccountChartTotal(accountId, dateToMonthISO)
+		})
+	}
+
+	return data;
+}
+
+export async function getAccountChartTotal(accountId: string, dateTo: string): Promise<number> {
+	return await axios({
+		url: process.env.REACT_APP_API_ENDPOINT,
+		headers : {
+			"Authorization" : "Bearer " + localStorage.getItem('login.token')
+		},
+		method: 'post',
+		data : {
+			query: `query { transactionsConnection(where: {bank_account: "` + accountId + `", DateTime_lt: "` + dateTo + `"}) {
 				aggregate {
 				  sum {
 					Amount
