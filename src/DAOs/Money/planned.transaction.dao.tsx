@@ -86,7 +86,7 @@ export async function getPlannedTransactions(accountId: string, dateFrom: string
 	});
 }
 
-export async function getPlannedTransactionsTotal(accountId: string, date: string): Promise<number> {
+export async function getPlannedTransactionsTotal(accountId: string, dateFrom: string | null, dateTo: string): Promise<number> {
 	return await axios({
 		url: process.env.REACT_APP_API_ENDPOINT,
 		headers : {
@@ -94,7 +94,7 @@ export async function getPlannedTransactionsTotal(accountId: string, date: strin
 		},
 		method: 'post',
 		data : {
-			query: `query { plannedTransactionsConnection(where: {Processed: false, bank_account: "` + accountId + `", Date_lt: "` + date + `"}) {
+			query: `query { plannedTransactionsConnection(where: {Processed: false, bank_account: "` + accountId + `"` + (dateFrom !== null ? `, Date_gte: "` + dateFrom + `"`: ``) + `, Date_lt: "` + dateTo + `"}) {
 				aggregate {
 				  sum {
 					  Amount
@@ -187,5 +187,50 @@ export async function initiateRecurringTransactions(accountId: string, dateFrom:
 		console.log('Error creating initiating recurring transactions...');
 		// TODO: Do something with the errors
 		return [];
+	});
+}
+
+export async function processPlannedTransaction(accountId: string, processed: boolean) {
+	return await axios({
+		url: process.env.REACT_APP_API_ENDPOINT,
+		headers : {
+			"Authorization" : "Bearer " + localStorage.getItem('login.token')
+		},
+		method: 'post',
+		data : {
+			query: `mutation {
+				updatePlannedTransaction(input:{
+					where: {id: "` + accountId + `"}
+					data: {Processed: ` + processed + `}
+				}) {
+					plannedTransaction {
+						id, 
+						Name, 
+						Amount, 
+						Date,
+						Processed
+						createdAt, 
+						bank_account {
+							id,
+							Name, 
+							Bank {
+								Name
+							}
+						}, 
+						transaction_category {
+							id,
+							Name,
+							Code
+						}
+					}
+				}
+			}`
+		}
+	}).then(response => {
+		return response.data.data.updatePlannedTransaction.plannedTransaction;
+	}).catch(response => {
+		console.log('Error processing planned transaction...');
+		// TODO: Do something with the errors
+		return null;
 	});
 }

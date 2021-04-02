@@ -114,7 +114,7 @@ export async function getLatestAccountTotal(account: string, dateFrom: string, d
 		}
 	}).then(async response => {
 		if (response.data.data.transactionsConnection.aggregate.sum.Amount !== null) {
-			const unprocessedPlannedTransactionTotal = await getPlannedTransactionsTotal(account, dateFrom);
+			const unprocessedPlannedTransactionTotal = await getPlannedTransactionsTotal(account, null, dateFrom);
 			return response.data.data.transactionsConnection.aggregate.sum.Amount + unprocessedPlannedTransactionTotal;
 		} else {
 			return 0;

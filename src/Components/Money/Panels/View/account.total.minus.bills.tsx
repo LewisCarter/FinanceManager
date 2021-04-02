@@ -22,7 +22,7 @@ export const AccountTotalMinusBills = (props: {
 		getLatestAccountTotal(props.accountId, props.dateFrom, props.dateTo).then((accountTotalResult: number) => {
 			setAccountTotal(accountTotalResult);
 
-			getPlannedTransactionsTotal(props.accountId, props.dateTo).then((plannedTransactionsTotalResult: number) => {
+			getPlannedTransactionsTotal(props.accountId, null, props.dateTo).then((plannedTransactionsTotalResult: number) => {
 				setPlannedTransactionsTotal(plannedTransactionsTotalResult);
 
 				getSavingsPotTotalsForAccount(props.accountId, props.dateTo).then((savingsTotalResults: Map<string, number>) => {

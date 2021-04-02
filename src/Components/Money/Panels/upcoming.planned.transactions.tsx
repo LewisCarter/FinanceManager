@@ -4,7 +4,8 @@ import { IPlannedTransaction } from '../../../DTOs/Money/planned.transaction.dto
 import { PlannedTransaction } from '../Components/planned.transaction';
 
 interface IUpcomingPlannedTransactionsProps {
-	refresh: boolean | null
+	refresh: boolean | null;
+	refreshCallback: Function;
 }
 
 export const UpcomingPlannedTransactions = (props: IUpcomingPlannedTransactionsProps) => {
@@ -30,7 +31,8 @@ export const UpcomingPlannedTransactions = (props: IUpcomingPlannedTransactionsP
 				transactionCategoryName={transaction.transaction_category.Name}
 				bankName={transaction.bank_account.Bank.Name}
 				bankAccountName={transaction.bank_account.Name}
-				amount={transaction.Amount} />;
+				amount={transaction.Amount}
+				refreshCallback={props.refreshCallback} />;
 		}) : <p>No upcoming transactions found.</p>}
 	</div>
 }
