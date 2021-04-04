@@ -26,4 +26,5 @@ export interface IPlannedTransactionCreateInput {
 	Date: string;
 	bank_account : string;
 	transaction_category : string;
+	savings_pot: string;
 }

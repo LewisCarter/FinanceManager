@@ -128,7 +128,7 @@ export async function createPlannedTransaction(plannedTransaction: IPlannedTrans
 					Name: "` + plannedTransaction.Name + `",
 					Amount: ` + plannedTransaction.Amount + `,
 					Processed: ` + plannedTransaction.Processed + `,
-					Date: "` + plannedTransaction.Date + `",
+					Date: "` + moment(plannedTransaction.Date).format('YYYY-MM-DD') + `",
 					bank_account: "` + plannedTransaction.bank_account + `",
 					transaction_category: "` + plannedTransaction.transaction_category + `"
 				}}) {
@@ -176,7 +176,8 @@ export async function initiateRecurringTransactions(accountId: string, dateFrom:
 				Processed: false,
 				Date: date.format("YYYY-MM-DD"),
 				bank_account: recurringTransaction.bank_account.id,
-				transaction_category: recurringTransaction.transaction_category.id
+				transaction_category: recurringTransaction.transaction_category.id,
+				savings_pot: "" // TODO: add savings pots to recurring transactions
 			}
 			return createPlannedTransaction(plannedTransactionInput);
 		});
