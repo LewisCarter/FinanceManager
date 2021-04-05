@@ -20,16 +20,20 @@ export const PlannedTransactionsPanel = (props: {
 	const [openModal, setOpenModal] = useState<boolean | null>(null);
 
 	useEffect(() => {
-		setOpenModal(null);
+		if (openModal !== null) {
+			setOpenModal(null);
+		} else {
+			setOpenModal(null);
 
-		getPlannedTransactionsTotal(props.accountId, props.dateFrom, props.dateTo).then((result: number) => {
-			setTotal(result);
-		});
+			getPlannedTransactionsTotal(props.accountId, props.dateFrom, props.dateTo).then((result: number) => {
+				setTotal(result);
+			});
 
-		getPlannedTransactions(props.accountId, props.dateFrom, props.dateTo).then((result: IPlannedTransaction[]) => {
-			setPlannedTransactions(result);
-		});
-	}, [props.accountId, props.dateFrom, props.dateTo, props.refresh]);
+			getPlannedTransactions(props.accountId, props.dateFrom, props.dateTo).then((result: IPlannedTransaction[]) => {
+				setPlannedTransactions(result);
+			});
+		}
+	}, [props.accountId, props.dateFrom, props.dateTo, props.refresh, openModal]);
 
 	function initiate() {
 		initiateRecurringTransactions(props.accountId, props.dateFrom).then((result: IPlannedTransaction[]) => {
@@ -42,11 +46,16 @@ export const PlannedTransactionsPanel = (props: {
 		props.refreshCallback(true);
 	}
 
+	function openModalEvent(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+		e.preventDefault(); 
+		setOpenModal(true);
+	}
+
 	return <>
 		<div className="flex justify-between">
 			<h2 className="flex flex-row font-bold text-2xl mb-5">
 				Planned transactions 
-				<button className="text-blue-500 self-center align-middle ml-2" onClick={(e) => {e.preventDefault(); setOpenModal(true);}}><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
+				<button className="text-blue-500 self-center align-middle ml-2" onClick={(e) => { openModalEvent(e); }}><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
 			</h2>
 			<Modal open={openModal}>
 				<NewPlannedTransaction accountId={props.accountId} successCallback={() => createSuccess()} dateFrom={moment(props.dateFrom).format('YYYY/MM/DD')} dateTo={moment(props.dateTo).format('YYYY/MM/DD')} />

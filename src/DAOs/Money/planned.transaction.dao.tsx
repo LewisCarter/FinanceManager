@@ -130,7 +130,8 @@ export async function createPlannedTransaction(plannedTransaction: IPlannedTrans
 					Processed: ` + plannedTransaction.Processed + `,
 					Date: "` + moment(plannedTransaction.Date).format('YYYY-MM-DD') + `",
 					bank_account: "` + plannedTransaction.bank_account + `",
-					transaction_category: "` + plannedTransaction.transaction_category + `"
+					transaction_category: "` + plannedTransaction.transaction_category + `",
+					savings_pot: "` + plannedTransaction.savings_pot + `"
 				}}) {
 					plannedTransaction {
 						id, 

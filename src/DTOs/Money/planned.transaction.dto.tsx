@@ -17,6 +17,12 @@ export interface IPlannedTransaction {
 		Name: string;
 		Code: string;
 	};
+	savings_pot: {
+		id: string;
+		Name: string;
+		Amount: number;
+		Date: string;
+	}
 }
 
 export interface IPlannedTransactionCreateInput {
