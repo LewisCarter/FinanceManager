@@ -67,15 +67,7 @@ export const PlannedTransactionsPanel = (props: {
 		{plannedTransactions.length > 0 ? plannedTransactions.map((plannedTransaction: IPlannedTransaction, idx) => {
 			return <PlannedTransaction 
 				key={'planned-transaction-' + idx}
-				id={plannedTransaction.id}
-				processed={plannedTransaction.Processed}
-				date={plannedTransaction.Date} 
-				name={plannedTransaction.Name}
-				transactionCategoryCode={plannedTransaction.transaction_category.Code} 
-				transactionCategoryName={plannedTransaction.transaction_category.Name}
-				bankName={plannedTransaction.bank_account.Bank.Name}
-				bankAccountName={plannedTransaction.bank_account.Name}
-				amount={plannedTransaction.Amount}
+				plannedTransaction={plannedTransaction}
 				refreshCallback={props.refreshCallback} />}) : <p>No planned transactions found. <button onClick={initiate} className="text-blue-500 hover:text-blue-600 hover:underline">Click here</button> to initiate recurring transactions.</p>}
 	</>;
 }

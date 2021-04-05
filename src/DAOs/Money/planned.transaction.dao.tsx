@@ -236,3 +236,28 @@ export async function processPlannedTransaction(accountId: string, processed: bo
 		return null;
 	});
 }
+
+export async function deletePlannedTransaction(id: string): Promise<string> {
+	return await axios({
+		url: process.env.REACT_APP_API_ENDPOINT,
+		headers: {
+			"Authorization": 'Bearer ' + localStorage.getItem('login.token')
+		},
+		method: 'post',
+		data: {
+			query: `mutation {
+				deletePlannedTransaction(input: {where: {id:"` + id + `"}}) {
+					plannedTransaction {
+						id
+					}
+			 	}
+			}`
+		}
+	}).then(response => {
+		return response.data.data.deletePlannedTransaction.plannedTransaction.id;
+	}).catch(response => {
+		console.log('Error deleting bank planned transaction...');
+		// TODO: Do something with the errors
+		return null;
+	});
+}

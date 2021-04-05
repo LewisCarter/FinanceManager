@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ISavingsPot, ISavingsPotTotal } from '../../DTOs/Money/savings.pot.dto';
+import { ISavingsPot, ISavingsPotCreateInput, ISavingsPotTotal } from '../../DTOs/Money/savings.pot.dto';
 
 export async function getSavingsPots(): Promise<Array<ISavingsPot>> {
     return await axios({
@@ -102,5 +102,35 @@ export function getSavingsPotTotalsForAccount(accountId: string, dateTo: string 
 		console.log('Error loading savings pots...');
 		// TODO: Do something with the errors
 		return new Map<string, number>();
+	});
+}
+
+export async function createSavingsPot(item: ISavingsPotCreateInput): Promise<ISavingsPot> {
+	return await axios({
+		url: process.env.REACT_APP_API_ENDPOINT,
+		headers : {
+			"Authorization" : "Bearer " + localStorage.getItem('login.token')
+		},
+		method: 'post',
+		data : {
+			query: `mutation {
+				createSavingsPot(input: { data: {
+					Name: "` + item.Name + `",
+					Goal: ` + item.Goal + `
+				}}) {
+					savingsPot {
+						id, 
+						Name,
+						Goal
+					}
+				}
+			  }`
+		}
+	}).then(response => {
+		return response.data.data.createSavingsPot.savingsPot;
+	}).catch(response => {
+		console.log('Error creating savings pot...');
+		// TODO: Do something with the errors
+		return null;
 	});
 }

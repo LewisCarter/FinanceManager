@@ -14,3 +14,8 @@ export interface ISavingsPotTotal {
 		}
 	}
 }
+
+export interface ISavingsPotCreateInput {
+	Name: string;
+	Goal: number;
+}
