@@ -46,7 +46,7 @@ export const PlannedTransaction = (props: {
 		</p>
 		<h5 className="md:pl-5 md:pr-5 w-full">
 			{props.plannedTransaction.Name}<br/>
-			<small className="text-gray-500">{props.plannedTransaction.transaction_category.Name} - {props.plannedTransaction.bank_account.Bank.Name} - {props.plannedTransaction.bank_account.Name}</small>
+			<small className="text-gray-500">{props.plannedTransaction.transaction_category.Name === 'Savings' && props.plannedTransaction.savings_pot !== undefined ? props.plannedTransaction.transaction_category.Name + ' - ' + props.plannedTransaction.savings_pot.Name : props.plannedTransaction.transaction_category.Name} - {props.plannedTransaction.bank_account.Bank.Name} - {props.plannedTransaction.bank_account.Name}</small>
 		</h5>
 		<p className={props.plannedTransaction.Amount >= 0 ? 'text-green-500 min-w-max' : 'text-red-500 min-w-max'}>
 			<FormatCurrency value={props.plannedTransaction.Amount} />
