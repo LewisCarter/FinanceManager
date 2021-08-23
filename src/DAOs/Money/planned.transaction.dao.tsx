@@ -31,6 +31,10 @@ export async function getUpcomingPlannedTransactions(limit=5) {
 						id,
 						Name,
 						Code
+					},
+					savings_pot {
+						id,
+						Name
 					}
 				}
 			}`
@@ -73,6 +77,10 @@ export async function getPlannedTransactions(accountId: string, dateFrom: string
 						id,
 						Name,
 						Code
+					},
+					savings_pot {
+						id,
+						Name
 					}
 				}
 			}`
@@ -130,7 +138,8 @@ export async function createPlannedTransaction(plannedTransaction: IPlannedTrans
 					Processed: ` + plannedTransaction.Processed + `,
 					Date: "` + moment(plannedTransaction.Date).format('YYYY-MM-DD') + `",
 					bank_account: "` + plannedTransaction.bank_account + `",
-					transaction_category: "` + plannedTransaction.transaction_category + `"
+					transaction_category: "` + plannedTransaction.transaction_category + `",
+					` + (plannedTransaction.savings_pot !== null && plannedTransaction.savings_pot !== "" ? `savings_pot: "` + plannedTransaction.savings_pot + `"` : ``) + `
 				}}) {
 					plannedTransaction {
 						id, 
@@ -150,7 +159,11 @@ export async function createPlannedTransaction(plannedTransaction: IPlannedTrans
 							id,
 							Name,
 							Code
-						}
+						}` + (plannedTransaction.savings_pot !== null ? `,
+						savings_pot {
+							id,
+							Name
+						}` : ``) + `
 					}
 				}
 			  }`
@@ -159,6 +172,7 @@ export async function createPlannedTransaction(plannedTransaction: IPlannedTrans
 		return response.data.data.createPlannedTransaction.plannedTransaction;
 	}).catch(response => {
 		console.log('Error creating planned transaction...');
+		console.log(response);
 		// TODO: Do something with the errors
 		return null;
 	});
@@ -177,7 +191,7 @@ export async function initiateRecurringTransactions(accountId: string, dateFrom:
 				Date: date.format("YYYY-MM-DD"),
 				bank_account: recurringTransaction.bank_account.id,
 				transaction_category: recurringTransaction.transaction_category.id,
-				savings_pot: "" // TODO: add savings pots to recurring transactions
+				savings_pot: recurringTransaction.savings_pot !== null ? recurringTransaction.savings_pot.id : null
 			}
 			return createPlannedTransaction(plannedTransactionInput);
 		});
@@ -185,7 +199,8 @@ export async function initiateRecurringTransactions(accountId: string, dateFrom:
 	}).then((plannedTransactions) => {
 		return Promise.all(plannedTransactions);
 	}).catch(response => {
-		console.log('Error creating initiating recurring transactions...');
+		console.log('Error initiating recurring transactions...');
+		console.log(response);
 		// TODO: Do something with the errors
 		return [];
 	});
@@ -222,6 +237,10 @@ export async function processPlannedTransaction(accountId: string, processed: bo
 							id,
 							Name,
 							Code
+						},
+						savings_pot {
+							id,
+							Name
 						}
 					}
 				}
@@ -231,6 +250,31 @@ export async function processPlannedTransaction(accountId: string, processed: bo
 		return response.data.data.updatePlannedTransaction.plannedTransaction;
 	}).catch(response => {
 		console.log('Error processing planned transaction...');
+		// TODO: Do something with the errors
+		return null;
+	});
+}
+
+export async function deletePlannedTransaction(id: string): Promise<string> {
+	return await axios({
+		url: process.env.REACT_APP_API_ENDPOINT,
+		headers: {
+			"Authorization": 'Bearer ' + localStorage.getItem('login.token')
+		},
+		method: 'post',
+		data: {
+			query: `mutation {
+				deletePlannedTransaction(input: {where: {id:"` + id + `"}}) {
+					plannedTransaction {
+						id
+					}
+			 	}
+			}`
+		}
+	}).then(response => {
+		return response.data.data.deletePlannedTransaction.plannedTransaction.id;
+	}).catch(response => {
+		console.log('Error deleting bank planned transaction...');
 		// TODO: Do something with the errors
 		return null;
 	});

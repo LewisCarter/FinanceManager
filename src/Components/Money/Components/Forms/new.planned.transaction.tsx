@@ -74,15 +74,26 @@ class NewPlannedTransaction extends React.Component<INewPlannedTransactionProps,
 		}
 	}
 	
+	getTransactionCategoryName(id: string) {
+		const category = this.state.transactionCategories.find(category => category.id === id);
+
+		if (category === undefined) return undefined;
+
+		return category.Name;
+	}
+
 	render() {
 		let validation = yup.object().shape({
 			Name: yup.string().required("This is a required field"),
 			Amount: yup.number().required("This is a required field"),
 			Date: yup.date().required("This is a required field"),
 			transaction_category: yup.string().required("This is a required field"),
+			savings_pot: yup.string().when('transaction_category', {
+				is: (transaction_category: string) => this.getTransactionCategoryName(transaction_category) !== undefined && this.getTransactionCategoryName(transaction_category) === 'Savings',
+				then: yup.string().required("You must select a savings pot"),
+				otherwise: yup.string()
+			}),
 		});
-
-		const savingsPot = this.state.savingsPots.find(pot => pot.id === this.state.values.savings_pot);
 
 		return <>
 			<h2 className={"text-3xl font-bold text-center mb-5"}>New planned transaction</h2>
@@ -91,7 +102,7 @@ class NewPlannedTransaction extends React.Component<INewPlannedTransactionProps,
 				validationSchema={validation}
 				onSubmit={(values, actions) => this.submit(values, actions)}>
 				
-				{({ errors, touched }) => (
+				{({ values, errors, touched }) => (
 				<Form className={"flex flex-col"}>
 					
 					<div className="flex flex-col mb-5">
@@ -112,7 +123,6 @@ class NewPlannedTransaction extends React.Component<INewPlannedTransactionProps,
 
 					<div className="flex flex-col mb-5">
 						<label htmlFor="Date" className={"font-bold pb-2"}>Date <span className="text-red-600">*</span></label>
-						{/* <Field id="Date" name="Date" placeholder="" className={"border rounded-md pt-2 pr-3 pb-2 pl-3 md:w-6/12"} /> */}
 						<DatePickerField 
 							name="Date" 
 							dateFormat="dd/MM/yyyy" 
@@ -129,7 +139,7 @@ class NewPlannedTransaction extends React.Component<INewPlannedTransactionProps,
 						<Field id="transaction_category" name="transaction_category" as="select" className={"border rounded-md pt-2 pr-3 pb-2 pl-3"}>
 							<option value="">- Please select -</option>
 							{this.state.transactionCategories.map((transactionCategory: ITransactionCategory) => {
-								return <option value={transactionCategory.id}>{transactionCategory.Name}</option>
+								return <option value={transactionCategory.id} key={"planned-transaction-category-" + transactionCategory.id}>{transactionCategory.Name}</option>
 							})}
 						</Field>
 						{errors.transaction_category && touched.transaction_category ? (
@@ -137,12 +147,12 @@ class NewPlannedTransaction extends React.Component<INewPlannedTransactionProps,
 						) : null}
 					</div>
 
-					<div className={(savingsPot !== undefined && savingsPot.Name === 'Savings pot' ? '' : 'hidden') + "flex flex-col mb-5"}>
+					<div className={(this.getTransactionCategoryName(values.transaction_category) !== undefined && this.getTransactionCategoryName(values.transaction_category) === 'Savings' ? '' : 'hidden ') + "flex flex-col mb-5"}>
 						<label htmlFor="savings_pot" className={"font-bold pb-3"}>Savings pot</label>
 						<Field id="savings_pot" name="savings_pot" as="select" className={"border rounded-md pt-2 pr-3 pb-2 pl-3"}>
 							<option value="">- Please select -</option>
 							{this.state.savingsPots.map((savingsPot: ISavingsPot) => {
-								return <option value={savingsPot.id}>{savingsPot.Name}</option>
+								return <option value={savingsPot.id} key={"planned-transaction-savings-pot-" + savingsPot.id}>{savingsPot.Name}</option>
 							})}
 						</Field>
 						{errors.savings_pot && touched.savings_pot ? (

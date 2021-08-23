@@ -26,6 +26,10 @@ export async function getRecurringTransactions(accountId: string): Promise<IRecc
                         id,
 						Name,
 						Code
+					},
+					savings_pot {
+						id, 
+						Name
 					}
 				}
 			}`

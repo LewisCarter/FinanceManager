@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoggedInTemplate } from '../Shared/loggedin.component';
+import { SavingsTotalsPanel } from '../Money/Components/ViewAccount/Components/SavingsPots/savings.totals.component';
 import NetWorthPanel from './Panels/net.worth.component';
-import { SavingsTotalsPanel } from '../Money/Panels/savings.totals.component';
 import EmergencyFundPanel from './Panels/emergency.fund.component';
 
 interface IDashboardProps {}

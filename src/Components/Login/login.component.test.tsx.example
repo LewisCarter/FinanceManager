@@ -1,0 +1,31 @@
+import React from 'react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import Login from './login.component';
+
+describe('Login', () => {
+// 	test('Renders login page', () => {
+// 		render(<Login />);
+// 		const signInBtn = screen.getByText(/Sign in/i);
+// 		expect(signInBtn).toBeInTheDocument();
+// 	});
+
+// 	test('Ensure protected route is protected', () => {
+// 		render(<Login />);
+// 		const signInBtn = screen.getByText(/Sign in/i);
+// 		expect(signInBtn).toBeInTheDocument();
+// 	});
+	
+// 	test('Ensure that an error is thrown when incorrect details are entered', async () => {
+// 		render(<Login />);
+		
+// 		const signInBtn = screen.getByTestId('submit-btn');
+
+// 		fireEvent.submit(signInBtn);
+
+// 		const errorMessage = await waitFor(() => {
+// 			return screen.getByRole('alert');
+// 		});
+		
+// 		expect(errorMessage).toBeInTheDocument();
+// 	});
+})

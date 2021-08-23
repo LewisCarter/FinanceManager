@@ -1,3 +1,4 @@
+import { ISavingsPot } from './savings.pot.dto';
 export interface IReccuringTransaction {
 	id: string;
 	Name: string;
@@ -15,6 +16,7 @@ export interface IReccuringTransaction {
 		Name: string;
 		Code: string;
 	};
+	savings_pot : ISavingsPot
 }
 
 export interface IReccuringTransactionCreateInput {
