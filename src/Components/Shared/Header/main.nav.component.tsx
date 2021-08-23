@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Notifications from './notifications.component';
+// import Notifications from './notifications.component';
 import UserMenu from './user.menu.component';
 
 interface IMainNavProps {}
@@ -42,31 +42,31 @@ class MainNav extends React.Component<IMainNavProps, IMainNavState> {
 						<span className="mt-0.5 ml-2">money</span>
 					</NavLink>
 				</li>
-				<li className="lg:pl-7 mt-2 lg:mt-0">
-					<NavLink to="/property" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">
-						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-						<span className="mt-0.5 ml-2">property</span>
-					</NavLink>
-				</li>
-				<li className="lg:pl-7 mt-2 lg:mt-0">
-					<NavLink to="/pensions" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">
-						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
-						<span className="mt-0.5 ml-2">pensions</span>
-					</NavLink>
-				</li>
-				<li className="lg:pl-7 mt-2 lg:mt-0">
-					<NavLink to="/investments" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">
-						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
-						<span className="mt-0.5 ml-2">investments</span>
-					</NavLink>
-				</li>
-				<li className="lg:hidden sm:visible">
+				{/*<li className="lg:pl-7 mt-2 lg:mt-0">*/}
+				{/*	<NavLink to="/property" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">*/}
+				{/*		<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>*/}
+				{/*		<span className="mt-0.5 ml-2">property</span>*/}
+				{/*	</NavLink>*/}
+				{/*</li>*/}
+				{/*<li className="lg:pl-7 mt-2 lg:mt-0">*/}
+				{/*	<NavLink to="/pensions" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">*/}
+				{/*		<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>*/}
+				{/*		<span className="mt-0.5 ml-2">pensions</span>*/}
+				{/*	</NavLink>*/}
+				{/*</li>*/}
+				{/*<li className="lg:pl-7 mt-2 lg:mt-0">*/}
+				{/*	<NavLink to="/investments" className="flex text-gray-700 hover:bg-gray-600 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium" activeClassName="flex bg-gray-700 text-green-300 px-3 py-2 rounded-md text-sm font-medium">*/}
+				{/*		<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>*/}
+				{/*		<span className="mt-0.5 ml-2">investments</span>*/}
+				{/*	</NavLink>*/}
+				{/*</li>*/}
+				{/*<li className="lg:hidden sm:visible">*/}
 
-				</li>
+				{/*</li>*/}
 			</ul>
 			<div className={"flex flex-row"}>
 				<div className={"flex flex-row"}>
-					<Notifications />
+					{/*<Notifications />*/}
 					<UserMenu />
 				</div>
 				<span className="lg:hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-3 pt-1" onClick={(e) => this.onClick(e)}>

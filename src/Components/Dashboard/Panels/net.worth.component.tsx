@@ -59,12 +59,7 @@ class NetWorthPanel extends React.Component<INetWorthPanelProps, INetWorthPanelS
 			colors={{ scheme: 'nivo' }}
 			borderWidth={1}
 			borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
-			enableRadialLabels={false}
-			radialLabelsSkipAngle={10}
-			radialLabelsTextColor={{ from: 'color', modifiers: [] }}
-			radialLabelsLinkColor={{ from: 'color' }}
-			sliceLabelsSkipAngle={10}
-			sliceLabelsTextColor="#333333"
+			enableArcLabels={false}
 			legends={[
 				{
 					anchor: 'bottom',
