@@ -35,9 +35,9 @@ class UserMenu extends React.Component<IUserMenuProps, IUserMenuState> {
 		return <>
 			<div className="ml-3 relative">
 				<div>
-					<button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true" onClick={(e) => this.onClick(e)}>
+					<button className="max-w-xs rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true" onClick={(e) => this.onClick(e)}>
 						<span className="sr-only">Open user menu</span>
-						<img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+						<span className="h-8 w-8 flex bg-gray-700 text-green-300 px-2 py-1.5 text-sm font-medium rounded-full">LC</span>
 					</button>
 				</div>
 
